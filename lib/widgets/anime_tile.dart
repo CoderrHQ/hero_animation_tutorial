@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '/models/anime.dart';
+import '/screens/anime_detail_screen.dart.dart';
 
 class AnimeTile extends StatelessWidget {
   const AnimeTile({
@@ -24,9 +25,21 @@ class AnimeTile extends StatelessWidget {
               SizedBox(
                 height: 120,
                 width: 150,
-                child: Image.network(
-                  anime.movieBanner,
-                  fit: BoxFit.cover,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => AnimeDetailScreen(anime: anime),
+                      ),
+                    );
+                  },
+                  child: Hero(
+                    tag: 'image${anime.id}',
+                    child: Image.network(
+                      anime.movieBanner,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(width: 10),

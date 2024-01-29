@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart' show timeDilation;
 
 import '/models/anime.dart';
 
@@ -12,6 +13,7 @@ class AnimeDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    timeDilation = 2; // normal speed is 1.0
     return Scaffold(
       appBar: AppBar(
         title: const Text('Movie Detail'),
@@ -23,9 +25,12 @@ class AnimeDetailScreen extends StatelessWidget {
             // Full-screen image at the top
             SizedBox(
               height: 300,
-              child: Image.network(
-                anime.movieBanner,
-                fit: BoxFit.cover,
+              child: Hero(
+                tag: 'image${anime.id}',
+                child: Image.network(
+                  anime.movieBanner,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             // Padding between image and info
